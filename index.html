@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Chatbot</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22url(%23gradient)%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-weight=%22bold%22>B</text><defs><linearGradient id=%22gradient%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 stop-color=%22%2311161d%22/><stop offset=%22100%25%22 stop-color=%22%234f8cff%22/></linearGradient></defs></svg>">
     <style>
         * {
             margin: 0;
@@ -34,6 +35,31 @@
             display: flex;
             flex-direction: column;
             height: 600px;
+            position: relative;
+        }
+
+        .website-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e8eef8;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .website-button:hover {
+            background: rgba(79, 140, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .chat-header {
@@ -211,22 +237,38 @@
             .message {
                 max-width: 90%;
             }
+            
+            .website-button {
+                top: 15px;
+                right: 15px;
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .suggestions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="chatbot-container">
+        <a href="https://bigteslaboy3-creator.github.io/portfolio/" class="website-button" target="_blank">
+            <i class='bx bx-globe'></i>
+            My Website
+        </a>
+        
         <div class="chat-header">
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%234f8cff'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>AI</text></svg>" alt="AI Assistant">
             <div>
-                <h2>AI Assistant</h2>
+                <h2>Bigboy's Assistant</h2>
                 <span>Online</span>
             </div>
         </div>
         
         <div class="chat-messages">
             <div class="message bot-message">
-                Hi there! I'm your AI assistant. How can I help you today?
+                Hi there! I'm Bigboy's AI assistant. Ask me anything about his skills, projects, or background!
             </div>
             
             <div class="typing-indicator">
@@ -237,13 +279,14 @@
         </div>
         
         <div class="suggestions">
-            <div class="suggestion-chip">What services do you offer?</div>
-            <div class="suggestion-chip">Tell me about your skills</div>
+            <div class="suggestion-chip">What skills do you have?</div>
+            <div class="suggestion-chip">Tell me about your projects</div>
             <div class="suggestion-chip">How can I contact you?</div>
+            <div class="suggestion-chip">What's your learning journey?</div>
         </div>
         
         <div class="chat-input">
-            <input type="text" placeholder="Type your message..." id="userInput">
+            <input type="text" placeholder="Ask about Bigboy..." id="userInput">
             <button id="sendButton">
                 <i class='bx bx-send'></i>
             </button>
@@ -258,14 +301,20 @@
             const typingIndicator = document.querySelector('.typing-indicator');
             const suggestionChips = document.querySelectorAll('.suggestion-chip');
             
-            // Predefined responses for the AI
+            // Enhanced responses with Bigboy's information
             const responses = {
-                greeting: "Hello! I'm an AI assistant here to help you learn more about Bigboy's portfolio and services.",
-                services: "I offer web development, contact form integration, and computer engineering services. I build responsive, fast websites with clean UI/UX.",
-                skills: "My skills include HTML (95%), CSS (90%), JavaScript (60%), and Python. I'm constantly learning new technologies!",
-                contact: "You can contact me through the contact form on my website or connect with me on social media. I'd love to hear about your project!",
-                work: "You can see my work in the portfolio section. I've created e-commerce sites, contact forms, artist portfolios, and more.",
-                default: "I'm not sure how to answer that. You can ask me about my services, skills, or how to contact me."
+                greeting: "Hello! I'm Bigboy's AI assistant. I can tell you about his skills, projects, background, and more!",
+                about: "Bigboy Chukwuemeka is a passionate frontend and backend developer, beginner app developer, and aspiring software engineer. He loves creating clean, responsive, and user-friendly websites that bring ideas to life.",
+                skills: "Bigboy's skills include: HTML5, CSS3, JavaScript, TailwindCSS, Responsive Design, PHP (beginner level), Git & GitHub, and beginner Android/web app development.",
+                tools: "He works with tools like Boxicons, Google Fonts, and template customization. He's learning advanced JavaScript concepts step by step.",
+                projects: "Bigboy builds portfolio websites, landing pages, calculators, web apps, forms with backend integration, and photography portfolio websites for clients.",
+                learning: "Bigboy learns coding at a relaxed, step-by-step pace to fully understand concepts. He follows tutorials (like Programming with Mosh) and reinforces learning by building real projects.",
+                vision: "His vision is to grow from a junior developer into a professional software engineer, build useful applications, and eventually live independently through his coding career.",
+                contact: "You can contact Bigboy via email at bigteslaboy@gmail.com or phone at +234 916 281 2387. Check out his GitHub: https://bigteslaboy.github.io/me, LinkedIn: Big Boy, and Twitter/X: @bigboy_code",
+                website: "You can visit Bigboy's portfolio website at https://bigteslaboy3-creator.github.io/portfolio/ to see his projects and learn more about his services!",
+                backend: "Bigboy has beginner-level PHP skills for handling forms, logic, and simple database integration.",
+                journey: "Bigboy started his coding journey as a learner and gradually built projects to sharpen his skills — from calculators and forms to full portfolio websites for clients.",
+                default: "I'm not sure how to answer that. You can ask me about Bigboy's skills, projects, learning journey, or how to contact him."
             };
             
             // Function to add a message to the chat
@@ -295,14 +344,26 @@
                 
                 if (userMessage.includes('hello') || userMessage.includes('hi') || userMessage.includes('hey')) {
                     return responses.greeting;
-                } else if (userMessage.includes('service') || userMessage.includes('offer') || userMessage.includes('do')) {
-                    return responses.services;
-                } else if (userMessage.includes('skill') || userMessage.includes('can you') || userMessage.includes('able')) {
+                } else if (userMessage.includes('about') || userMessage.includes('who are you') || userMessage.includes('background')) {
+                    return responses.about;
+                } else if (userMessage.includes('skill') || userMessage.includes('what can you do') || userMessage.includes('technology')) {
                     return responses.skills;
-                } else if (userMessage.includes('contact') || userMessage.includes('email') || userMessage.includes('reach')) {
+                } else if (userMessage.includes('tool') || userMessage.includes('framework') || userMessage.includes('library')) {
+                    return responses.tools;
+                } else if (userMessage.includes('project') || userMessage.includes('build') || userMessage.includes('portfolio') || userMessage.includes('work')) {
+                    return responses.projects;
+                } else if (userMessage.includes('learn') || userMessage.includes('study') || userMessage.includes('tutorial')) {
+                    return responses.learning;
+                } else if (userMessage.includes('vision') || userMessage.includes('goal') || userMessage.includes('future')) {
+                    return responses.vision;
+                } else if (userMessage.includes('contact') || userMessage.includes('email') || userMessage.includes('phone') || userMessage.includes('reach')) {
                     return responses.contact;
-                } else if (userMessage.includes('work') || userMessage.includes('project') || userMessage.includes('portfolio')) {
-                    return responses.work;
+                } else if (userMessage.includes('website') || userMessage.includes('link')) {
+                    return responses.website;
+                } else if (userMessage.includes('backend') || userMessage.includes('php') || userMessage.includes('database')) {
+                    return responses.backend;
+                } else if (userMessage.includes('journey') || userMessage.includes('start') || userMessage.includes('begin')) {
+                    return responses.journey;
                 } else {
                     return responses.default;
                 }
@@ -347,7 +408,7 @@
             
             // Initial greeting
             setTimeout(() => {
-                addMessage("Feel free to ask me about my services, skills, or how to contact me!");
+                addMessage("I can tell you all about Bigboy - his skills, projects, learning journey, and how to contact him. What would you like to know?");
             }, 1000);
         });
     </script>
